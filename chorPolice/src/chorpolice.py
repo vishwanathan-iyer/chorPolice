@@ -18,7 +18,11 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
- 
+BLUE = (0, 0, 255)
+
+police=2
+chor=1
+clear=0
 # This sets the WIDTH and HEIGHT of each grid location
 WIDTH = 20
 HEIGHT = 20
@@ -38,9 +42,30 @@ for row in range(10):
  
 # Set row 1, cell 5 to one. (Remember rows and
 # column numbers start at zero.)
-grid[1][5] = 1
-rowPre=1
-columnPre=5
+chorPreRow=1
+chorPreCol=5
+
+p1PreRow=1
+p1PreCol=5
+
+p2PreRow=1
+p2PreCol=5
+
+
+chorRow=1
+chorCol=5
+
+pol1Row=5
+pol1Col=1
+
+pol2Row=5
+pol2Col=8
+
+turn=0
+
+#grid[chorRow][chorCol] = chor
+#grid[pol1Row][pol1Col] = police
+#grid[pol2Row][pol2Col] = police
             
 # Initialize pygame
 pygame.init()
@@ -66,19 +91,30 @@ while not done:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             # User clicks the mouse. Get the position
             pos = pygame.mouse.get_pos()
-            #update previous position
-            
-            grid[rowPre][columnPre] = 0
-            
             # Change the x/y screen coordinates to grid coordinates
             column = pos[0] // (WIDTH + MARGIN)
             row = pos[1] // (HEIGHT + MARGIN)
-            #save previous position
-            rowPre=row
-            columnPre=column
-            
             # Set that location to one
-            grid[row][column] = 1
+            if turn==0:
+                grid[chorPreRow][chorPreCol] = clear
+                chorPreRow=row
+                chorPreCol=column
+                grid[row][column] = chor
+                turn=turn+1
+            elif turn==1 :
+                grid[p1PreRow][p1PreCol] = clear
+                p1PreRow=row
+                p1PreCol=column      
+                grid[row][column] = police
+                turn=turn+1
+            elif turn==2 :
+                grid[p2PreRow][p2PreCol] = clear
+                p2PreRow=row
+                p2PreCol=column      
+                grid[row][column] = police
+                turn=turn+1
+            if turn==3:
+                turn=0
             
             print("Click ", pos, "Grid coordinates: ", row, column)
  
@@ -89,11 +125,11 @@ while not done:
     for row in range(10):
         for column in range(10):
             color = WHITE
-            if grid[row][column] == 1:
+            if grid[row][column] == chor:
                 color = RED
-            if grid[row][column] == 0:
+            if grid[row][column] == clear:
                 color = WHITE
-            if grid[row][column] == 2:
+            if grid[row][column] == police:
                 color = BLUE                
             pygame.draw.rect(screen,
                              color,
