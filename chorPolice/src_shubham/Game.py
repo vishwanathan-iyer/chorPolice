@@ -187,7 +187,9 @@ class Game:
         """
         assert ((id < len(self.players))  and id >= 0), "Invalid ID specified"
         assert self.started, "The game has not yet started"
-        assert (self.current_turn == id), "It is not your turn"
+        
+        if (self.current_turn != id):
+            return False    # Ignore if turn is incorrect
         
         # Restore the next turn
         self.turns.enqueue(self.current_turn)   

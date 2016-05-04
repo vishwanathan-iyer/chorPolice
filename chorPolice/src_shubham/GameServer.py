@@ -1,7 +1,5 @@
 from Game import Game
 import socket
-from Cheetah.Template import Lock
-from distutils.cmd import Command
 
 class Server:
     """
@@ -65,7 +63,7 @@ class Server:
         """
         def __init__(self, server, socket, addr):
             """
-                __init(ClientThread, Server, socket, address) -> None
+                __init__(ClientThread, Server, socket, address) -> None
                 Initializes the client thread 
             """
             self.server = server
