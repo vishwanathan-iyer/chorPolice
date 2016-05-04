@@ -3,6 +3,7 @@ import os
 from operator import pos
 from random import shuffle
 from Queue import Queue
+from _dbus_bindings import String
 
 class Game:
     
@@ -61,6 +62,14 @@ class Game:
         f.close()
         
         return arena
+    
+    
+    def is_valid_type(self, type):
+        """
+            is_valid_type(Game, str) -> bool
+            Returns True if the specified type is valid, otherwise returns False
+        """
+        return (type == "police" or type == "chor")
     
         
     def init_player(self, pos, type):
@@ -211,19 +220,25 @@ class Game:
 
 
 
-    def print_arena(self):
+    def __str__(self):
+        """
+            __str__(Game) -> str
+            Returns a string representation of the arena
+        """
+        string = ""
         for row in self.arena:
             for col in row:
-                print col,
-            print ""
+                string += (col + " ")
+            string += "\n"
+        return string
     
         
 
 if __name__ == '__main__':
     g = Game("arena.txt")
-    g.print_arena()
+    print str(g)
     id = g.init_player((1, 1), "chor")
     while(True):
         direction = input("Enter direction: ")
         g.move(id, direction)
-        g.print_arena()
+        print str(g)
