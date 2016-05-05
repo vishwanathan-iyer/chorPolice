@@ -1,9 +1,7 @@
 from __builtin__ import str
 import os
-from operator import pos
 from random import shuffle
 from Queue import Queue
-from _dbus_bindings import String
 
 class Game:
     
@@ -231,7 +229,7 @@ class Game:
         for row in self.arena:
             for col in row:
                 string += (col + " ")
-            string += "\n"
+            string += "\n "
         return string
     
         

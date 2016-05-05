@@ -1,6 +1,5 @@
 import pygame
 from Game import Game
-from docutils.nodes import row
  
 # Define some colors
 BLANK = (255, 255, 255)
